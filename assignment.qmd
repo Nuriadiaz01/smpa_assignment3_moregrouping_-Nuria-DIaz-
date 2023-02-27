@@ -44,9 +44,9 @@ Write your code using grouping in the chunks below to help answer the following 
 
 ```{r}
 
-
-
-
+impeach %>% 
+  group_by( for_impeachment) %>%  summarise(n = n()) %>% 
+  arrange(desc(n))
 
 
 ```
@@ -57,11 +57,9 @@ You'll want to ensure you do the grouping on both columns together, e.g. `group_
 
 ```{r}
 
-
-
-
-
-
+impeach %>% 
+  group_by( for_impeachment, district) %>%  summarise(n = n()) %>% 
+  arrange(desc(n))
 
 
 
@@ -74,12 +72,9 @@ You'll want to ensure you do the grouping on both columns together, e.g. `group_
 
 
 
-
-
-
-
-
-
+impeach %>% 
+  group_by( for_impeachment, median_income_compared_to_national) %>%  summarise(n = n()) %>% 
+  arrange(desc(n))
 
 ```
 
@@ -90,14 +85,12 @@ Instead of counting how many districts are above/below the national average, thi
 In other words, you want to end up with the calculated mean for what that percentage is for the Yes districts and the No districts.
 
 ```{r}
+impeach %>% 
+  group_by(for_impeachment, pct_bachelors_compared_to_national) %>%  summarise(n = n()) %>% 
+  arrange(desc(n))
 
 
-
-
-
-
-
-
+```
 
 ```
 
@@ -106,11 +99,9 @@ The relevant column for that is `trump_percent`.
 
 ```{r}
 
-
-
-
-
-
+impeach %>% 
+  group_by(for_impeachment, trump_percent) %>%  summarise(n = n()) %>% 
+  arrange(desc(n))
 
 
 
@@ -122,11 +113,9 @@ The relevant column for that is `trump_percent`.
 ```{r}
 
   
-
-
-
-
-
+impeach %>% 
+  filter(for_impeachment == "YES") %>% group_by (for_impeachment,margin_flag_2018) %>% summarise(n = n()) %>% 
+  arrange(desc(n))
 
 
 ```
@@ -134,10 +123,12 @@ The relevant column for that is `trump_percent`.
 7)  Come up with another breakdown of your choosing for how you'd like to examine this dataset. Say what you'll look at, and then put the code below to find the answer.
 
 ```{r}
-
+# I'm interested in seeing how rurality impacted the impeachment votes 
   
 
-
+impeach %>% 
+  filter(for_impeachment == "YES") %>% group_by (for_impeachment,gdp_above_national) %>% summarise(n = n()) %>% 
+  arrange(desc(n))
 
 
 
@@ -151,13 +142,13 @@ Use the mutate() function to create two new columns: one that extracts the year 
 
 ```{r}
 
+impeach <- impeach%>% 
+  mutate(year = year(date_announced), month = month(date_announced)) 
   
-
-
-
-
-
-
+  events <- events %>% 
+  mutate(year = year(date),
+         month = month(date),
+         day = day(date))
 
 ```
 
@@ -168,11 +159,12 @@ Use the mutate() function to create two new columns: one that extracts the year 
   
 
 
+impeach %>% 
+  filter(for_impeachment == "YES") %>% group_by (year, month) %>% summarise(n = n()) %>% 
+  arrange(desc(n))
 
-
-
-
-
+ git config --global user.email "nuriadiaz02@gwu.edu"
+  git config --global user.name "Nuriadiaz01"
 ```
 
 
